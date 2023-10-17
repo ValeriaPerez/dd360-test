@@ -1,3 +1,5 @@
+// import { useEffect, useState , useMemo} from 'react';
+// import moment  from 'moment';
 import { Stack, Typography } from '@mui/material';
 import { useDark } from '../../hooks';
 import { Container } from '../../components';
@@ -10,8 +12,8 @@ const DARK_CLASS = 'isDark';
 
 function Statistics({
   onClick,
-  word = 'PERRO',
 }: StatisticsProps) {
+  const statistics = JSON.parse(localStorage.getItem('statistics') as any);
   const { isDark } = useDark();
   const className: string = [
     MAIN_CLASS,
@@ -27,46 +29,46 @@ function Statistics({
       onClick={onClick}>
       <div className={className}>
         <Stack
-          alignItems="space-between"
-          direction="column"
-          justifyContent="center"
+          alignItems='space-between'
+          direction='column'
+          justifyContent='center'
           spacing={10}
           mb={10}
         >
-          <Stack direction="row" justifyContent="space-around" alignItems="center">
+          <Stack direction='row' justifyContent='space-around' alignItems='center'>
             <Stack
-              alignItems="center"
-              direction="column"
-              justifyContent="center"
+              alignItems='center'
+              direction='column'
+              justifyContent='center'
             >
-              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 800 }} component='p' color='text.secondary'>
-                8
+              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 800 }}>
+                {statistics.play}
               </Typography>
-              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 300 }} component='p' color='text.secondary'>
+              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 300 }}>
                 Jugadas
               </Typography>
             </Stack>
             <Stack
-              alignItems="center"
-              direction="column"
-              justifyContent="center"
+              alignItems='center'
+              direction='column'
+              justifyContent='center'
             >
-              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 800 }} component='p' color='text.secondary'>
-                2
+              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 800 }}>
+                {statistics.win}
               </Typography>
-              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 100 }} component='p' color='text.secondary'>
+              <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 100 }}>
                 Victorias
               </Typography>
             </Stack>
           </Stack>
-          <Typography gutterBottom sx={{ fontSize: 19, fontWeight: 400 }} component='p' color='text.secondary'>
-            La palabra era <strong>{word}</strong>
+          <Typography gutterBottom sx={{ fontSize: 19, fontWeight: 400 }}>
+            La palabra era <strong>{statistics.word}</strong>
           </Typography>
-          <Typography sx={{ fontSize: 19, fontWeight: 100 }} component='p' color='text.secondary'>
-            SIGUIENTE PALABRA
-            <Typography gutterBottom sx={{ fontSize: 24, fontWeight: 800 }} component='p' color='text.secondary'>
-              <strong>04:10</strong>
-            </Typography>
+          <Typography sx={{ fontSize: 19, fontWeight: 100 }}>
+            SIGUIENTE PALABRA <br />
+            <strong style={{ fontSize: 24, margin: '10px' }}>
+              04:10
+            </strong>
           </Typography>
         </Stack>
       </div>

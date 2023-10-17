@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 // import { useState, cloneElement } from 'react';
 import { useDark } from '../../hooks';
-import {
-  mockRowLatter,
-  mockItemLatter,
-} from '../../utils';
+import { mockRowLatter, mockItemLatter } from '../../utils';
 import {
   GameHeader,
   Intro,
@@ -25,13 +22,7 @@ const Game = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(false);
   const [arrayOne, setArrayOne] = useState<LattersType[]>(mockRowLatter);
-
-  const className: string = [
-    MAIN_CLASS,
-    isDark && `${DARK_CLASS}`,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const className: string = [MAIN_CLASS, isDark && `${DARK_CLASS}`].filter(Boolean).join(' ');
 
   const toggleIsDark = () => {
     setIsDark(!isDark);
@@ -60,11 +51,8 @@ const Game = () => {
   }
 
   useEffect(() => {
-    if(!isIntro){
-      setOpenModal(true);
-    } else {
-      setOpenModal(false);
-    }
+    if (!isIntro) setOpenModal(true);
+    else setOpenModal(false);
   }, [isIntro]);
 
   return (

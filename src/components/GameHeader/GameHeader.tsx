@@ -27,11 +27,11 @@ const GameHeader = ({
 
   return (
     <div className={className}>
-      <img src={isDark ? infoDark : info} alt="Introduccion" onClick={openModal}/>
+      <img src={isDark ? infoDark : info} alt='Introduccion' onClick={openModal}/>
       <h1 className='GameHeader__title'>WORDLE</h1>
       <div>
-        <img className='imgStatus' src={isDark ? chartDark : chart} alt="switch" onClick={openModalStatistics}/>
-        <img className='imgSwitch' src={isDark ? switchDark : switchLight} alt="switch" onClick={onClick}/>
+        <img className='imgStatus' src={isDark ? chartDark : chart} alt='switch' onClick={openModalStatistics}/>
+        <img className='imgSwitch' src={isDark ? switchDark : switchLight} alt='switch' onClick={onClick}/>
       </div>
     </div>
   );
