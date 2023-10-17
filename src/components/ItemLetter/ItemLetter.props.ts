@@ -1,6 +1,7 @@
+export type LetterStatusType = 'success' | 'warning' | 'fail' | '';
 export interface ItemLetterProps {
     letter?: string | React.ReactNode;
-    status?: 'success' | 'warning' | 'fail' | '';
+    status?: LetterStatusType;
     onClick?: () => void;
     small?: boolean;
 }

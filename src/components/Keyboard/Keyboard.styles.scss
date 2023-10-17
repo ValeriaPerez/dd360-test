@@ -1,7 +1,7 @@
 @import '../../styles/index.scss';
 
 .Keyboard {
-  background-color: $backgroundColor;
+  background-color: #DADCE008;
   border-radius: 15px;
   border: 1px solid $black;
   height: 85%;
@@ -21,6 +21,9 @@
     color: $white;
 
     & .ItemLetter {
+      cursor: pointer;
+      background-color: #565F7E;
+      border-color: #565F7E;
       &:hover {
         color: $dark-blue;
         background-color: $white;
@@ -30,6 +33,8 @@
 
   & .ItemLetter {
     cursor: pointer;
+    background-color: #D3D6DA;
+    border-color: #D3D6DA;
     transition: all .2s ease-in-out;
     &:hover {
       background-color: #818181;

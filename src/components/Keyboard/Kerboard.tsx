@@ -3,7 +3,7 @@ import BackspaceIcon from '@mui/icons-material/Backspace';
 
 import { useDark } from '../../hooks';
 import { mockKeyboard } from '../../utils';
-import { ItemLetter } from '../../components';
+import { ItemLetter, LetterStatusType } from '../../components';
 
 import type { KerboardProps } from './Kerboard.props';
 import './Keyboard.styles.scss';
@@ -28,6 +28,7 @@ function Kerboard({
         return (
           <ItemLetter
             key={index}
+            status={letter.letter === 'ENTER' || letter.letter === 'BORRAR' ? 'fail' : '' as LetterStatusType}
             letter={
               letter.letter === 'ENTER' ? <KeyboardReturnIcon/> :
               letter.letter === 'BORRAR' ? <BackspaceIcon/> : letter.letter

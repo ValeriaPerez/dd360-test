@@ -1,5 +1,6 @@
 import type { RowLattersProps, LattersType } from './RowLatters.props';
 import { ItemLetter } from '../../components';
+import type { LetterStatusType } from '../../components';
 
 function RowLatters({ letters }: RowLattersProps)  {
   return (
@@ -12,6 +13,7 @@ function RowLatters({ letters }: RowLattersProps)  {
             return (
               <ItemLetter
                 key={index}
+                status={letter.status as LetterStatusType}
                 letter={letter.letter} />
             );
           }

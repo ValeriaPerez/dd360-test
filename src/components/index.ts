@@ -8,6 +8,15 @@ import Modal from './Modal';
 import RowLatters from './RowLatters';
 import Statistics from './Statistics';
 
+export * from './Container';
+export * from './Game';
+export * from './GameHeader';
+export * from './Intro';
+export * from './ItemLetter';
+export * from './Keyboard';
+export * from './Modal';
+export * from './RowLatters';
+export * from './Statistics';
 export {
   Container,
   Game,

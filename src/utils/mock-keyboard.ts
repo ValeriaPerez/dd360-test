@@ -2,102 +2,102 @@ const mockKeyboard = [
   {
     status: '',
     letter: 'Q',
-    value: 'Q'
+    value: 'q'
   },
   {
     status: '',
     letter: 'W',
-    value: 'W'
+    value: 'w'
   },
   {
     status: '',
     letter: 'E',
-    value: 'E'
+    value: 'e'
   },
   {
     status: '',
     letter: 'R',
-    value: 'R'
+    value: 'r'
   },
   {
     status: '',
     letter: 'T',
-    value: 'T'
+    value: 't'
   },
   {
     status: '',
     letter: 'Y',
-    value: 'Y'
+    value: 'y'
   },
   {
     status: '',
     letter: 'U',
-    value: 'U'
+    value: 'u'
   },
   {
     status: '',
     letter: 'I',
-    value: 'I'
+    value: 'i'
   },
   {
     status: '',
     letter: 'O',
-    value: 'O'
+    value: 'o'
   },
   {
     status: '',
     letter: 'P',
-    value: 'P'
+    value: 'p'
   },
   {
     status: '',
     letter: 'A',
-    value: 'A'
+    value: 'a'
   },
   {
     status: '',
     letter: 'S',
-    value: 'S'
+    value: 's'
   },
   {
     status: '',
     letter: 'D',
-    value: 'D'
+    value: 'd'
   },
   {
     status: '',
     letter: 'F',
-    value: 'F'
+    value: 'f'
   },
   {
     status: '',
     letter: 'G',
-    value: 'G'
+    value: 'g'
   },
   {
     status: '',
     letter: 'H',
-    value: 'H'
+    value: 'h'
   },
   {
     status: '',
     letter: 'J',
-    value: 'J'
+    value: 'j'
   },
   {
     status: '',
     letter: 'K',
-    value: 'K'
+    value: 'k'
   },
   {
     status: '',
     letter: 'L',
-    value: 'L'
+    value: 'l'
   },
   {
     status: '',
     letter: 'Ñ',
-    value: 'Ñ'
+    value: 'ñ'
   },
   {
     status: '',
@@ -106,43 +106,38 @@ const mockKeyboard = [
   },
   {
     status: '',
-    letter: 'W',
-    value: 'W'
-  },
-  {
-    status: '',
     letter: 'Z',
-    value: 'Z'
+    value: 'z'
   },
   {
     status: '',
     letter: 'X',
-    value: 'X'
+    value: 'x'
   },
   {
     status: '',
     letter: 'C',
-    value: 'C'
+    value: 'c'
   },
   {
     status: '',
     letter: 'V',
-    value: 'V'
+    value: 'v'
   },
   {
     status: '',
     letter: 'B',
-    value: 'B'
+    value: 'b'
   },
   {
     status: '',
     letter: 'N',
-    value: 'N'
+    value: 'n'
   },
   {
     status: '',
     letter: 'M',
-    value: 'M'
+    value: 'm'
   },
   {
     status: '',
