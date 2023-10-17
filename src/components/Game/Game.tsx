@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { useState, cloneElement } from 'react';
 import { useDark } from '../../hooks';
-import { mockRowLatter, mockItemLatter } from '../../utils';
+import {
+  mockRowLatter,
+  mockItemLatter,
+} from '../../utils';
 import {
   GameHeader,
   Intro,
@@ -17,9 +20,10 @@ const MAIN_CLASS = 'Game';
 const DARK_CLASS = 'isDark';
 
 const Game = () => {
+  let isIntro = localStorage.getItem('isInit');
   const {isDark, setIsDark } = useDark();
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(true);
+  const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(false);
   const [arrayOne, setArrayOne] = useState<LattersType[]>(mockRowLatter);
 
   const className: string = [
@@ -33,6 +37,7 @@ const Game = () => {
     setIsDark(!isDark);
   }
   const toggleOpenModal = () => {
+    localStorage.setItem('isInit', '1');
     setOpenModal(!openModal);
   }
   const toggleOpenModalStatistics = () => {
@@ -53,6 +58,14 @@ const Game = () => {
     }
     setArrayOne(newArray);
   }
+
+  useEffect(() => {
+    if(!isIntro){
+      setOpenModal(true);
+    } else {
+      setOpenModal(false);
+    }
+  }, [isIntro]);
 
   return (
     <div className={className}>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Game } from '../components';
 import { useDark } from '../hooks';
 
@@ -7,16 +6,10 @@ const DARK_CLASS = 'isDark';
 
 const Home = () => {
   const { isDark } = useDark();
-  const [isIntro, setIsIntro] = useState<boolean>(true);
-
-  // useEffect(() => {
-  //   if(!localStorage.getItem('isInit')){
-  //     setIsIntro(true);
-  //     localStorage.setItem('isInit', '1');
-  //   } else {
-  //     setIsIntro(false);
-  //   }
-  // },[isIntro]);
+  // let testObject = { play: 0, win: 0, word: ''};
+  // localStorage.setItem('testObject', JSON.stringify(testObject));
+  // let retrievedObject = localStorage.getItem('testObject');
+  // console.log('retrievedObject: ', JSON.parse(retrievedObject as any));
 
   const className: string = [
     MAIN_CLASS,
