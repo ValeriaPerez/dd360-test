@@ -9,7 +9,8 @@ function ItemLetter({ status, letter, onClick, small }: ItemLetterProps) {
   const { isDark } = useDark();
   const className: string = [
     MAIN_CLASS,
-    letter === undefined && `ItemLetter--init`,
+    !letter && !isDark && `ItemLetter--init`,
+    !letter && isDark && `ItemLetter--init-${DARK_CLASS}`,
     isDark && status && `ItemLetter--${status}-${DARK_CLASS}`,
     isDark && !status && `ItemLetter--${DARK_CLASS}`,
     !isDark && status && `ItemLetter--${status}`,
