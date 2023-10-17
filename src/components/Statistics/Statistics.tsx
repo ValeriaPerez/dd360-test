@@ -63,8 +63,7 @@ function Statistics({
             La palabra era <strong>{word}</strong>
           </Typography>
           <Typography sx={{ fontSize: 19, fontWeight: 100 }} component='p' color='text.secondary'>
-            SIGUIENTE PALABRA  <strong>{word}</strong>
-
+            SIGUIENTE PALABRA
             <Typography gutterBottom sx={{ fontSize: 24, fontWeight: 800 }} component='p' color='text.secondary'>
               <strong>04:10</strong>
             </Typography>
