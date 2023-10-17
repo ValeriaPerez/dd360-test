@@ -1,5 +1,5 @@
 export interface ModalProps {
-    children: React.ReactNode;
-    handleClose?: () => void;
-    open: boolean;
+  children: React.ReactNode;
+  handleClose?: () => void;
+  open: boolean;
 }

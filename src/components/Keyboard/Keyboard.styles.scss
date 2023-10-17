@@ -1,0 +1,39 @@
+@import '../../styles/index.scss';
+
+.Keyboard {
+  background-color: $backgroundColor;
+  border-radius: 15px;
+  border: 1px solid $black;
+  height: 85%;
+  margin: auto;
+  max-width: 540px;
+  overflow-y: scroll;
+  padding: 1.5em;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em auto;
+
+  &.isDark {
+    background-color: $dark-blue;
+    border: 1px solid $white;
+    color: $white;
+
+    & .ItemLetter {
+      &:hover {
+        color: $dark-blue;
+        background-color: $white;
+      }
+    }
+  }
+
+  & .ItemLetter {
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    &:hover {
+      background-color: #818181;
+      color: $white
+    }
+  }
+}

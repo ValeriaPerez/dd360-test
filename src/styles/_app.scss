@@ -4,6 +4,7 @@
   justify-content: center;
   background-color: $white;
   color: $black;
+  min-height: 100vh;
 
   &.isDark {
     background-color: $dark-blue;

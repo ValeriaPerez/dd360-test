@@ -1,5 +1,6 @@
 export interface ItemLetterProps {
-    letter?: string;
+    letter?: string | React.ReactNode;
     status?: 'success' | 'warning' | 'fail' | '';
-    isDark: boolean;
+    onClick?: () => void;
+    small?: boolean;
 }

@@ -1,6 +1,16 @@
 import { useState } from 'react';
+// import { useState, cloneElement } from 'react';
 import { useDark } from '../../hooks';
-import { ItemLetter, GameHeader, Modal, Intro } from '../../components';
+import { mockRowLatter, mockItemLatter } from '../../utils';
+import {
+  GameHeader,
+  Intro,
+  Keyboard,
+  Modal,
+  RowLatters,
+  Statistics,
+} from '../../components';
+import type { LattersType } from "../RowLatters";
 import './Game.styles.scss';
 
 const MAIN_CLASS = 'Game';
@@ -8,7 +18,10 @@ const DARK_CLASS = 'isDark';
 
 const Game = () => {
   const {isDark, setIsDark } = useDark();
-  const [openModal, setOpenModal] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(true);
+  const [arrayOne, setArrayOne] = useState<LattersType[]>(mockRowLatter);
+
   const className: string = [
     MAIN_CLASS,
     isDark && `${DARK_CLASS}`,
@@ -22,35 +35,43 @@ const Game = () => {
   const toggleOpenModal = () => {
     setOpenModal(!openModal);
   }
+  const toggleOpenModalStatistics = () => {
+    setOpenModalStatistics(!openModalStatistics);
+  }
+
+  const touchKeyboard = (letter: LattersType) => {
+    let newArray = [...arrayOne];
+    if (letter.value === 'ENTER') {
+      console.log('validar');
+    } else if (letter.value === 'BORRAR') {
+      newArray.shift();
+    } else {
+      newArray.unshift(letter);
+    }
+    if (newArray.length < 4 || newArray.length === 4) {
+      newArray.unshift(mockItemLatter);
+    }
+    setArrayOne(newArray);
+  }
 
   return (
     <div className={className}>
-      <GameHeader openModal={toggleOpenModal} onClick={toggleIsDark} />
-      <div className='grid'>
-        <ItemLetter isDark={isDark} status='success' letter='g' />
-        <ItemLetter isDark={isDark} status='warning' letter='a' />
-        <ItemLetter isDark={isDark} status='fail' letter='t' />
-        <ItemLetter isDark={isDark} letter='o' />
-        <ItemLetter isDark={isDark} letter='s' />
-      </div>
-      <div className='grid'>
-        <ItemLetter isDark={isDark} status='success' letter='g' />
-        <ItemLetter isDark={isDark} letter='a' />
-        <ItemLetter isDark={isDark} letter='t' />
-        <ItemLetter isDark={isDark} letter='o' />
-        <ItemLetter isDark={isDark} letter='s' />
-      </div>
-      <div className='grid'>
-        <ItemLetter isDark={isDark} status='success' letter='g' />
-        <ItemLetter isDark={isDark} letter='a' />
-        <ItemLetter isDark={isDark} letter='t' />
-        <ItemLetter isDark={isDark} letter='o' />
-        <ItemLetter isDark={isDark} letter='s' />
-      </div>
+      <GameHeader
+        onClick={toggleIsDark}
+        openModal={toggleOpenModal}
+        openModalStatistics={toggleOpenModalStatistics}
+      />
+      <RowLatters letters={arrayOne} />
+      <Keyboard onClickKeyboard={touchKeyboard} />
       <Modal
-        children={<Intro isDark={true} onClick={toggleOpenModal}/>}
+        children={<Intro onClick={toggleOpenModal}/>}
         handleClose={toggleOpenModal}
         open={openModal}
+      />
+      <Modal
+        children={<Statistics onClick={toggleOpenModalStatistics}/>}
+        handleClose={toggleOpenModalStatistics}
+        open={openModalStatistics}
       />
     </div>
   );

@@ -1,0 +1,20 @@
+@import '../../styles/index.scss';
+
+.Statistics {
+  text-align: center;
+  width: 100%;
+  color: $dark-blue;
+
+  &.isDark {
+    background-color: $dark-blue;
+    color: $white;
+
+    & .ContainerDD3__title {
+      color: $white;
+    }
+
+    & p {
+      color: $white;
+    }
+  }
+}

@@ -1,27 +1,26 @@
+import { useDark } from '../../hooks';
 import type { ItemLetterProps } from './ItemLetter.props';
 import './ItemLetter.styles.scss';
 
 const MAIN_CLASS = 'ItemLetter';
 const DARK_CLASS = 'isDark';
 
-function ItemLetter({ status, letter, isDark }: ItemLetterProps) {
-  
+function ItemLetter({ status, letter, onClick, small }: ItemLetterProps) {
+  const { isDark } = useDark();
   const className: string = [
     MAIN_CLASS,
-    isDark &&
-    status &&
-      `ItemLetter--${status}-${DARK_CLASS}`,
-    isDark &&
-    !status &&
-        `ItemLetter--${DARK_CLASS}`,
+    letter === undefined && `ItemLetter--init`,
+    isDark && status && `ItemLetter--${status}-${DARK_CLASS}`,
+    isDark && !status && `ItemLetter--${DARK_CLASS}`,
     !isDark && status && `ItemLetter--${status}`,
+    small && `ItemLetter--small`,
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <div className={className}>
-      <div className='ItemLetter__letter'>{letter}</div>
+    <div className={className} onClick={onClick}>
+      {letter}
     </div>
   );
 }

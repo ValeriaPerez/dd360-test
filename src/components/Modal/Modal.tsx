@@ -1,17 +1,5 @@
-import { Modal, Card, CardContent } from '@mui/material';
+import { Modal } from '@mui/material';
 import type { ModalProps } from './Modal.props';
-
-const modalStyle = `
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  height: 'auto',
-  padding: 0,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-`;
 
 export default function NestedModal({
   children = 'contenido',

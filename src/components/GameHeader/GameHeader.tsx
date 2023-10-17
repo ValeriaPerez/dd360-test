@@ -15,6 +15,7 @@ const DARK_CLASS = 'isDark';
 const GameHeader = ({
   onClick,
   openModal,
+  openModalStatistics,
 }: GameHeaderProps) => {
   const { isDark } = useDark();
   const className: string = [
@@ -29,8 +30,8 @@ const GameHeader = ({
       <img src={isDark ? infoDark : info} alt="Introduccion" onClick={openModal}/>
       <h1 className='GameHeader__title'>WORDLE</h1>
       <div>
-        <img src={isDark ? chartDark : chart} alt="switch" />
-        <img src={isDark ? switchDark : switchLight} alt="switch" onClick={onClick}/>
+        <img className='imgStatus' src={isDark ? chartDark : chart} alt="switch" onClick={openModalStatistics}/>
+        <img className='imgSwitch' src={isDark ? switchDark : switchLight} alt="switch" onClick={onClick}/>
       </div>
     </div>
   );
