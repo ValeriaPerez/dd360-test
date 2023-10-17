@@ -1,0 +1,12 @@
+.App {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: $white;
+  color: $black;
+
+  &.isDark {
+    background-color: $dark-blue;
+    color: $white;
+  }
+}

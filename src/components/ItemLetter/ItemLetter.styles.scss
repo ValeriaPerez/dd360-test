@@ -1,0 +1,53 @@
+@import '../../styles/index.scss';
+
+.ItemLetter {
+  background-color: $white;
+  border-radius: 5px;
+  border: 1px solid $black;
+  font-size: 35px;
+  margin: 0.5em;
+  max-width: 75px;
+  padding: 0.4em;
+  text-align: center;
+  text-transform: capitalize;
+  width: 100%;
+
+  &--success {
+    background-color: $green;
+    border: 1px solid $green;
+
+    &-isDark {
+      background-color: $green;
+      border: 1px solid $green;
+      color: $white;
+    }
+  }
+
+  &--warning {
+    background-color: $yellow;
+    border: 1px solid $yellow;
+
+    &-isDark {
+      background-color: $yellow;
+      border: 1px solid $yellow;
+      color: $white;
+    }
+  }
+
+  &--fail {
+    background-color: $dark-gray;
+    border: 1px solid $dark-gray;
+
+    &-isDark {
+      background-color: $dark-gray;
+      border: 1px solid $dark-gray;
+      color: $white;
+    }
+  }
+
+  &--isDark {
+    background-color: $dark-blue;
+    border: 1px solid $white;
+    color: $white;
+  }
+}
