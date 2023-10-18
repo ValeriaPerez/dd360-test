@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDark } from '../../hooks';
 import { useGetWords } from '../../api/words';
-import { mockRowLatter, mockItemLatter, getWordRandom, getWordArray, validatedWord, validatedWinnerWord } from '../../utils';
+import { mockRowLatter, mockItemLatter, getWordRandom, getWordArray, validatedWord, validatedWinnerWord, setStorage } from '../../utils';
 import { GameHeader, Intro, Keyboard, Modal, RowLatters, Statistics, SkeletonMock } from '../../components';
 import type { LattersType } from "../RowLatters";
 import './Game.styles.scss';
@@ -11,7 +11,6 @@ const DARK_CLASS = 'isDark';
 
 const Game = () => {
   let isIntro = localStorage.getItem('isInit');
-  let statistics = JSON.parse(localStorage.getItem('statistics') as any);
   const {isDark, setIsDark } = useDark();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(false);
@@ -35,20 +34,17 @@ const Game = () => {
   }
   const gameWinner = () => {
     reset();
-    localStorage.setItem(
-      'statistics',
-      JSON.stringify({...statistics, play: (Number(statistics.play) + 1), win: (Number(statistics.win) + 1), showWord: false})
-    );
+    setStorage(true, true, false, '');
   }
-  const setWordRandomArray = () => {
-    const arrayContructor = getWordArray(wordSelect);
+  const setWordRandomArray = (wordRandom: string) => {
+    const arrayContructor = getWordArray(wordRandom);
     if (arrayContructor) setWordArray(arrayContructor);
   }
   const setWord = () => {
     const wordRandom = getWordRandom(words);
-    console.log('wordRandom', wordRandom);
     if (wordRandom) setWordSelect(wordRandom);
-    setWordRandomArray();
+    setWordRandomArray(wordRandom);
+    setStorage(false, false, false, wordRandom);
   }
   const toggleOpenModal = () => {
     localStorage.setItem('isInit', '1');
@@ -104,10 +100,7 @@ const Game = () => {
   useEffect(() => {
     if (validate.length === 5) {
       reset();
-      localStorage.setItem(
-        'statistics',
-        JSON.stringify({...statistics, play: (Number(statistics.play) + 1), showWord: true})
-      );
+      setStorage(true, false, true, wordSelect);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validate]);

@@ -9,6 +9,7 @@ export * from './word-array';
 export * from './word-validate';
 export * from './word-winner-validate';
 export * from './words-provisional';
+export * from './set-storage';
 export {
   mockKeyboard,
   mockRowLatter,
