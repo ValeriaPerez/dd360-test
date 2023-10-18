@@ -23,7 +23,7 @@ const Game = () => {
   const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(false);
   const [wordSelect, setWordSelect] = useState<string>('');
   const [wordArray, setWordArray] = useState<string[]>([]);
-  const [arrayRowLetters, setArrayRowLetters] = useState<LattersType[]>([]);
+  const [validate, setValidate] = useState<LattersType[][]>([]);
   const [arrayInput, setArrayInput] = useState<LattersType[]>(mockRowLatter);
   const className: string = [MAIN_CLASS, isDark && `${DARK_CLASS}`].filter(Boolean).join(' ');
   const {words} = useGetWords();
@@ -55,9 +55,11 @@ const Game = () => {
     }
 
     if (letter.value === 'ENTER') {
+      let newArrayValidate = [...validate];
       const valitateArray = validatedWord(wordArray, arrayInput);
       setArrayInput(mockRowLatter);
-      setArrayRowLetters(valitateArray);
+      newArrayValidate.push(valitateArray);
+      setValidate(newArrayValidate);
     }
 
     if (newArray.length < 4 || newArray.length === 4) {
@@ -90,11 +92,9 @@ const Game = () => {
         openModal={toggleOpenModal}
         openModalStatistics={toggleOpenModalStatistics}
       />
-      {/* {arrayRowLetters.map((row, index) => {
-        console.log(row)
-        return <RowLatters key={index} letters={arrayRowLetters} />
-      })} */}
-      <RowLatters letters={arrayRowLetters} />
+      {validate.map((row, index) => {
+        return <RowLatters key={index} letters={row} />
+      })}
       <RowLatters letters={arrayInput} />
       <Keyboard onClickKeyboard={touchKeyboard} />
       <Modal

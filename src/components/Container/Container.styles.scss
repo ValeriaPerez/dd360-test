@@ -66,4 +66,8 @@
     text-align: center;
     width: 100%;
   }
+
+  & button:disabled {
+    background-color: gray;
+  }
 }
