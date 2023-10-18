@@ -1,5 +1,5 @@
 export interface GameHeaderProps {
-    onClick: () => void;
-    openModal: () => void;
-    openModalStatistics: () => void;
+  onClick: () => void;
+  openModal: () => void;
+  openModalStatistics: () => void;
 }

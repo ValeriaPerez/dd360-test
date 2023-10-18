@@ -9,6 +9,8 @@ export default function NestedModal({
   return (
     <Modal
       open={open}
+      disableAutoFocus
+      disableEnforceFocus
       onClose={handleClose}
       aria-labelledby='parent-modal-title'
       aria-describedby='parent-modal-description'

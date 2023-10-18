@@ -1,7 +1,7 @@
 export interface ContainerProps {
-    title: string;
-    children: React.ReactNode;
-    onClick?: () => void;
-    textButton?: string;
-    isDisabled?: boolean;
+  title: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+  textButton?: string;
+  isDisabled?: boolean;
 }

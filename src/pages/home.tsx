@@ -11,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!objectStatistics) {
-      let createObject = { play: 0, win: 0, word: ''};
+      let createObject = {play: 0, win: 0, word: '', showWord: false};
       localStorage.setItem('statistics', JSON.stringify(createObject));
     }
   });

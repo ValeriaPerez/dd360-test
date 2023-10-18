@@ -12,6 +12,7 @@ const DARK_CLASS = 'isDark';
 
 function Statistics({
   onClick,
+  isDisabled,
 }: StatisticsProps) {
   const statistics = JSON.parse(localStorage.getItem('statistics') as any);
   const { isDark } = useDark();
@@ -26,7 +27,8 @@ function Statistics({
     <Container
       title='Estadísticas'
       textButton='Aceptar'
-      onClick={onClick}>
+      onClick={onClick}
+      isDisabled={isDisabled}>
       <div className={className}>
         <Stack
           alignItems='space-between'
@@ -61,9 +63,11 @@ function Statistics({
               </Typography>
             </Stack>
           </Stack>
-          <Typography gutterBottom sx={{ fontSize: 19, fontWeight: 400 }}>
-            La palabra era <strong>{statistics.word}</strong>
-          </Typography>
+          {statistics.showWord &&
+            <Typography gutterBottom sx={{ fontSize: 19, fontWeight: 400 }}>
+              La palabra era <strong>{statistics.word}</strong>
+            </Typography>
+          }
           <Typography sx={{ fontSize: 19, fontWeight: 100 }}>
             SIGUIENTE PALABRA <br />
             <strong style={{ fontSize: 24, margin: '10px' }}>

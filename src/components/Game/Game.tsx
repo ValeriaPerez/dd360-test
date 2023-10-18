@@ -1,15 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDark } from '../../hooks';
 import { useGetWords } from '../../api/words';
-import { mockRowLatter, mockItemLatter, getWordRandom, getWordArray, validatedWord } from '../../utils';
-import {
-  GameHeader,
-  Intro,
-  Keyboard,
-  Modal,
-  RowLatters,
-  Statistics,
-} from '../../components';
+import { mockRowLatter, mockItemLatter, getWordRandom, getWordArray, validatedWord, validatedWinnerWord } from '../../utils';
+import { GameHeader, Intro, Keyboard, Modal, RowLatters, Statistics } from '../../components';
 import type { LattersType } from "../RowLatters";
 import './Game.styles.scss';
 
@@ -18,9 +11,11 @@ const DARK_CLASS = 'isDark';
 
 const Game = () => {
   let isIntro = localStorage.getItem('isInit');
+  let statistics = JSON.parse(localStorage.getItem('statistics') as any);
   const {isDark, setIsDark } = useDark();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(false);
+  const [isDisableStatistics, setIsDisableStatistics] = useState<boolean>(false);
   const [wordSelect, setWordSelect] = useState<string>('');
   const [wordArray, setWordArray] = useState<string[]>([]);
   const [validate, setValidate] = useState<LattersType[][]>([]);
@@ -30,6 +25,16 @@ const Game = () => {
 
   const toggleIsDark = () => {
     setIsDark(!isDark);
+  }
+  const gameWinnerReset = () => {
+    let setObject = { ...statistics, win: (Number(statistics.win) + 1), showWord: true};
+    localStorage.setItem('statistics', JSON.stringify(setObject));
+    setOpenModalStatistics(true);
+    setIsDisableStatistics(true);
+  }
+  const setLocalWord = () => {
+    let setObject = {...statistics, word: wordSelect, showWord: false};
+    localStorage.setItem('statistics', JSON.stringify(setObject));
   }
   const toggleOpenModal = () => {
     localStorage.setItem('isInit', '1');
@@ -57,9 +62,11 @@ const Game = () => {
     if (letter.value === 'ENTER') {
       let newArrayValidate = [...validate];
       const valitateArray = validatedWord(wordArray, arrayInput);
-      setArrayInput(mockRowLatter);
       newArrayValidate.push(valitateArray);
+      setArrayInput(mockRowLatter);
       setValidate(newArrayValidate);
+      const isWinner = validatedWinnerWord(valitateArray);
+      if (isWinner) gameWinnerReset();
     }
 
     if (newArray.length < 4 || newArray.length === 4) {
@@ -82,8 +89,22 @@ const Game = () => {
   useEffect(() => {
     if (wordSelect) {
       setWordArray(getWordArray(wordSelect));
+      setLocalWord();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wordSelect]);
+
+  useEffect(() => {
+    if (validate.length === 5) {
+      setOpenModalStatistics(true);
+      setIsDisableStatistics(true);
+      localStorage.setItem(
+        'statistics',
+        JSON.stringify({...statistics, play: (Number(statistics.play) + 1), showWord: false})
+      );
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validate]);
 
   return (
     <div className={className}>
@@ -103,8 +124,8 @@ const Game = () => {
         open={openModal}
       />
       <Modal
-        children={<Statistics onClick={toggleOpenModalStatistics}/>}
-        handleClose={toggleOpenModalStatistics}
+        children={<Statistics isDisabled={isDisableStatistics} onClick={toggleOpenModalStatistics}/>}
+        handleClose={!isDisableStatistics ? toggleOpenModalStatistics : () => null}
         open={openModalStatistics}
       />
     </div>

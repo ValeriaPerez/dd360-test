@@ -1,8 +1,8 @@
 import type { LattersType } from '../components';
 
 export const validatedWord = (arrayCompare: string[], arrayInput: LattersType[]) => {
-  console.warn('palabra oculta', arrayCompare);
-  console.warn('palabra ingresada', arrayInput);
+  console.warn('hidden word', arrayCompare);
+  console.warn('input word', arrayInput);
   const mockA = [0,1,2,3,4];
   // eslint-disable-next-line eqeqeq
   const compareArrays = mockA.map(i => arrayInput[i].value == arrayCompare[i] ?
