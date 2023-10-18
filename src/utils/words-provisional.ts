@@ -1,0 +1,27 @@
+const wordsProvisional = [
+  'gatos',
+  'perro',
+  'gafas',
+  'focos',
+  'tazas',
+  'plato',
+  'reata',
+  'files',
+  'yoyos',
+  'trozo',
+  'picar',
+  'rollo',
+  'cubos',
+  'jarra',
+  'sacos',
+  'zapas',
+  'higos',
+  'hilos',
+  'vasos',
+  'mango',
+  'pecho',
+  'bocas',
+  'queso',
+]
+
+export default wordsProvisional;

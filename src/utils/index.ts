@@ -8,6 +8,7 @@ export * from './word-random';
 export * from './word-array';
 export * from './word-validate';
 export * from './word-winner-validate';
+export * from './words-provisional';
 export {
   mockKeyboard,
   mockRowLatter,

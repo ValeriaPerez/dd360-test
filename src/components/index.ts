@@ -7,6 +7,7 @@ import Keyboard from './Keyboard';
 import Modal from './Modal';
 import RowLatters from './RowLatters';
 import Statistics from './Statistics';
+import SkeletonMock from './Skeleton';
 
 export * from './Container';
 export * from './Game';
@@ -17,6 +18,7 @@ export * from './Keyboard';
 export * from './Modal';
 export * from './RowLatters';
 export * from './Statistics';
+export * from './Skeleton';
 export {
   Container,
   Game,
@@ -27,4 +29,5 @@ export {
   Modal,
   RowLatters,
   Statistics,
+  SkeletonMock,
 };

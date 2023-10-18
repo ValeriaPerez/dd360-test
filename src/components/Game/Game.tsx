@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDark } from '../../hooks';
 import { useGetWords } from '../../api/words';
 import { mockRowLatter, mockItemLatter, getWordRandom, getWordArray, validatedWord, validatedWinnerWord } from '../../utils';
-import { GameHeader, Intro, Keyboard, Modal, RowLatters, Statistics } from '../../components';
+import { GameHeader, Intro, Keyboard, Modal, RowLatters, Statistics, SkeletonMock } from '../../components';
 import type { LattersType } from "../RowLatters";
 import './Game.styles.scss';
 
@@ -21,20 +21,34 @@ const Game = () => {
   const [validate, setValidate] = useState<LattersType[][]>([]);
   const [arrayInput, setArrayInput] = useState<LattersType[]>(mockRowLatter);
   const className: string = [MAIN_CLASS, isDark && `${DARK_CLASS}`].filter(Boolean).join(' ');
-  const {words} = useGetWords();
+  const {words, wordsLoading} = useGetWords();
 
   const toggleIsDark = () => {
     setIsDark(!isDark);
   }
-  const gameWinnerReset = () => {
-    let setObject = { ...statistics, win: (Number(statistics.win) + 1), showWord: true};
-    localStorage.setItem('statistics', JSON.stringify(setObject));
+  const reset = () => {
     setOpenModalStatistics(true);
-    setIsDisableStatistics(true);
+    setIsDisableStatistics(false);
+    setValidate([]);
+    setArrayInput(mockRowLatter);
+    setWord();
   }
-  const setLocalWord = () => {
-    let setObject = {...statistics, word: wordSelect, showWord: false};
-    localStorage.setItem('statistics', JSON.stringify(setObject));
+  const gameWinner = () => {
+    reset();
+    localStorage.setItem(
+      'statistics',
+      JSON.stringify({...statistics, play: (Number(statistics.play) + 1), win: (Number(statistics.win) + 1), showWord: false})
+    );
+  }
+  const setWordRandomArray = () => {
+    const arrayContructor = getWordArray(wordSelect);
+    if (arrayContructor) setWordArray(arrayContructor);
+  }
+  const setWord = () => {
+    const wordRandom = getWordRandom(words);
+    console.log('wordRandom', wordRandom);
+    if (wordRandom) setWordSelect(wordRandom);
+    setWordRandomArray();
   }
   const toggleOpenModal = () => {
     localStorage.setItem('isInit', '1');
@@ -66,7 +80,7 @@ const Game = () => {
       setArrayInput(mockRowLatter);
       setValidate(newArrayValidate);
       const isWinner = validatedWinnerWord(valitateArray);
-      if (isWinner) gameWinnerReset();
+      if (isWinner) gameWinner();
     }
 
     if (newArray.length < 4 || newArray.length === 4) {
@@ -82,25 +96,17 @@ const Game = () => {
 
   useEffect(() => {
     if (words) {
-      setWordSelect(getWordRandom(words));
+      setWord();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [words]);
 
   useEffect(() => {
-    if (wordSelect) {
-      setWordArray(getWordArray(wordSelect));
-      setLocalWord();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wordSelect]);
-
-  useEffect(() => {
     if (validate.length === 5) {
-      setOpenModalStatistics(true);
-      setIsDisableStatistics(true);
+      reset();
       localStorage.setItem(
         'statistics',
-        JSON.stringify({...statistics, play: (Number(statistics.play) + 1), showWord: false})
+        JSON.stringify({...statistics, play: (Number(statistics.play) + 1), showWord: true})
       );
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,11 +119,16 @@ const Game = () => {
         openModal={toggleOpenModal}
         openModalStatistics={toggleOpenModalStatistics}
       />
-      {validate.map((row, index) => {
-        return <RowLatters key={index} letters={row} />
-      })}
-      <RowLatters letters={arrayInput} />
-      <Keyboard onClickKeyboard={touchKeyboard} />
+      {wordsLoading && <SkeletonMock/>}
+      {!wordsLoading &&
+        <>
+          {validate.map((row, index) => {
+            return <RowLatters key={index} letters={row} />
+          })}
+          <RowLatters letters={arrayInput} />
+          <Keyboard onClickKeyboard={touchKeyboard} />
+        </>
+      }
       <Modal
         children={<Intro onClick={toggleOpenModal}/>}
         handleClose={toggleOpenModal}
