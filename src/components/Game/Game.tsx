@@ -58,6 +58,8 @@ const Game = () => {
     setStoragePlay(true);
     setOpenModalStatistics(true);
     setStorageShowWord(true);
+    setMinutes(5);
+    setSeconds(0);
   }
   const gameWinner = () => {
     reset();
