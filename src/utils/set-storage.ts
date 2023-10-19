@@ -1,20 +1,24 @@
-let statistics = JSON.parse(localStorage.getItem('statistics') as any);
+export const initStorage = () => {
+  localStorage.setItem('play', '0');
+  localStorage.setItem('win', '0');
+  localStorage.setItem('showWord', 'false');
+  localStorage.setItem('word', '');
+}
 
-export const setStorage = (
-  play?: boolean,
-  win?: boolean,
-  showWord?: boolean,
-  word?: string,
-) => {
+export const setStoragePlay = (play: boolean) => {
+  const numberPlay = localStorage.getItem('play');
+  localStorage.setItem('play', play ? String(Number(numberPlay) + 1) : String(numberPlay));
+}
 
-  localStorage.setItem(
-    'statistics',
-    JSON.stringify(
-      { ...statistics,
-        play: play ? (Number(statistics.play) + 1) : Number(statistics.play),
-        win: win ? (Number(statistics.win) + 1) : Number(statistics.win),
-        showWord: Boolean(showWord),
-        word: (word && word.length > 0) ? word : String(statistics.word),
-      })
-  );
+export const setStorageWin = (win: boolean) => {
+  const numberWin = localStorage.getItem('win');
+  localStorage.setItem('win', win ? String(Number(numberWin) + 1) : String(numberWin));
+}
+
+export const setStorageShowWord = (showWord: boolean) => {
+  localStorage.setItem('showWord', String(showWord));
+}
+
+export const setStorageWord = (word: string) => {
+  localStorage.setItem('word', word);
 }

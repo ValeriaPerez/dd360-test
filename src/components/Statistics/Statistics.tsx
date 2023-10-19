@@ -1,5 +1,3 @@
-// import { useEffect, useState , useMemo} from 'react';
-// import moment  from 'moment';
 import { Stack, Typography } from '@mui/material';
 import { useDark } from '../../hooks';
 import { Container } from '../../components';
@@ -12,10 +10,15 @@ const DARK_CLASS = 'isDark';
 
 function Statistics({
   onClick,
-  isDisabled,
+  seconds,
+  minutes,
 }: StatisticsProps) {
-  const statistics = JSON.parse(localStorage.getItem('statistics') as any);
+  const play = localStorage.getItem('play');
+  const win = localStorage.getItem('win');
+  const word = localStorage.getItem('word');
+  const showWord = localStorage.getItem('showWord');
   const { isDark } = useDark();
+
   const className: string = [
     MAIN_CLASS,
     isDark && `${DARK_CLASS}`,
@@ -27,8 +30,7 @@ function Statistics({
     <Container
       title='Estadísticas'
       textButton='Aceptar'
-      onClick={onClick}
-      isDisabled={isDisabled}>
+      onClick={onClick}>
       <div className={className}>
         <Stack
           alignItems='space-between'
@@ -44,7 +46,7 @@ function Statistics({
               justifyContent='center'
             >
               <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 800 }}>
-                {statistics.play}
+                {play}
               </Typography>
               <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 300 }}>
                 Jugadas
@@ -56,22 +58,22 @@ function Statistics({
               justifyContent='center'
             >
               <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 800 }}>
-                {statistics.win}
+                {win}
               </Typography>
               <Typography gutterBottom sx={{ fontSize: 32, fontWeight: 100 }}>
                 Victorias
               </Typography>
             </Stack>
           </Stack>
-          {statistics.showWord &&
+          {Boolean(showWord === 'true') &&
             <Typography gutterBottom sx={{ fontSize: 19, fontWeight: 400 }}>
-              La palabra era <strong>{statistics.word}</strong>
+              La palabra era <strong>{word}</strong>
             </Typography>
           }
           <Typography sx={{ fontSize: 19, fontWeight: 100 }}>
             SIGUIENTE PALABRA <br />
             <strong style={{ fontSize: 24, margin: '10px' }}>
-              04:10
+              0{minutes}:{String(seconds).length === 1 && `0`}{seconds}
             </strong>
           </Typography>
         </Stack>

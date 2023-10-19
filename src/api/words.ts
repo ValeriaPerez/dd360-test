@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useMemo } from 'react';
 // utils
-import { fetcher, endpoints } from '../utils/axios';
+import { fetcher, endpoints, wordsProvisional } from '../utils';
 
 export function useGetWords() {
   let URL = endpoints.words;
@@ -10,10 +10,10 @@ export function useGetWords() {
 
   const memoizedValue = useMemo(
     () => ({
-      words: (data && data.split('\n')) || [],
+      words: (data && data.split('\n')) || wordsProvisional,
       wordsLoading: isLoading,
       wordsError: error,
-      wordsEmpty: !isLoading && !data.length,
+      wordsEmpty: !isLoading && !data,
     }),
     [data, error, isLoading]
   );

@@ -1,4 +1,3 @@
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 import { useDark } from '../../hooks';
 import type { ContainerProps } from './Container.props';
 import './Container.styles.scss';
@@ -11,7 +10,6 @@ const Container = ({
   title,
   textButton,
   onClick,
-  isDisabled = false,
 }: ContainerProps) => {
   const { isDark } = useDark();
   const className: string = [
@@ -26,7 +24,7 @@ const Container = ({
       <h1 className='Container__title'>{title}</h1>
       <div className='Container__children'> {children}</div>
       {textButton && 
-        <button className='Container__button' disabled={isDisabled} onClick={onClick}>{textButton}</button>
+        <button className='Container__button' onClick={onClick}>{textButton}</button>
       }
     </div>
   );

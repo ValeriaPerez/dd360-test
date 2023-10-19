@@ -1,8 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useDark } from '../../hooks';
 import { useGetWords } from '../../api/words';
-import { mockRowLatter, mockItemLatter, getWordRandom, getWordArray, validatedWord, validatedWinnerWord, setStorage } from '../../utils';
-import { GameHeader, Intro, Keyboard, Modal, RowLatters, Statistics, SkeletonMock } from '../../components';
+import {
+  mockRowLatter,
+  mockItemLatter,
+  getWordRandom,
+  getWordArray,
+  validatedWord,
+  validatedWinnerWord,
+  setStorageWin,
+  setStoragePlay,
+  setStorageWord,
+  setStorageShowWord,
+} from '../../utils';
+import {
+  GameHeader,
+  Intro,
+  Keyboard,
+  Modal,
+  RowLatters,
+  Statistics,
+  SkeletonMock,
+} from '../../components';
 import type { LattersType } from "../RowLatters";
 import './Game.styles.scss';
 
@@ -14,27 +33,37 @@ const Game = () => {
   const {isDark, setIsDark } = useDark();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModalStatistics, setOpenModalStatistics] = useState<boolean>(false);
-  const [isDisableStatistics, setIsDisableStatistics] = useState<boolean>(false);
-  const [wordSelect, setWordSelect] = useState<string>('');
+  const [, setWordSelect] = useState<string>('');
   const [wordArray, setWordArray] = useState<string[]>([]);
   const [validate, setValidate] = useState<LattersType[][]>([]);
   const [arrayInput, setArrayInput] = useState<LattersType[]>(mockRowLatter);
+  const [minutes, setMinutes] = useState(5);
+  const [seconds, setSeconds] = useState(0);
+
   const className: string = [MAIN_CLASS, isDark && `${DARK_CLASS}`].filter(Boolean).join(' ');
   const {words, wordsLoading} = useGetWords();
 
   const toggleIsDark = () => {
     setIsDark(!isDark);
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const reset = () => {
-    setOpenModalStatistics(true);
-    setIsDisableStatistics(false);
     setValidate([]);
     setArrayInput(mockRowLatter);
+    setMinutes(5);
+    setSeconds(0);
     setWord();
+  }
+  const gameOver = () => {
+    setStoragePlay(true);
+    setOpenModalStatistics(true);
+    setStorageShowWord(true);
   }
   const gameWinner = () => {
     reset();
-    setStorage(true, true, false, '');
+    setStorageWin(true);
+    setStoragePlay(true);
+    setOpenModalStatistics(true);
   }
   const setWordRandomArray = (wordRandom: string) => {
     const arrayContructor = getWordArray(wordRandom);
@@ -44,13 +73,16 @@ const Game = () => {
     const wordRandom = getWordRandom(words);
     if (wordRandom) setWordSelect(wordRandom);
     setWordRandomArray(wordRandom);
-    setStorage(false, false, false, wordRandom);
+    setStorageWord(wordRandom);
   }
   const toggleOpenModal = () => {
     localStorage.setItem('isInit', '1');
     setOpenModal(!openModal);
   }
   const toggleOpenModalStatistics = () => {
+    setStorageShowWord(false);
+    const showWord = localStorage.getItem('showWord');
+    if (showWord === 'true') reset();
     setOpenModalStatistics(!openModalStatistics);
   }
 
@@ -99,11 +131,28 @@ const Game = () => {
 
   useEffect(() => {
     if (validate.length === 5) {
-      reset();
-      setStorage(true, false, true, wordSelect);
+      gameOver();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validate]);
+
+  useEffect(() => {
+    if (minutes === 0 && seconds === 0) {
+      gameOver();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minutes, seconds]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds === 0) {
+        setSeconds(60);
+        setMinutes(minutes - 1);
+      }
+      setSeconds(seconds => seconds - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [minutes, seconds]);
 
   return (
     <div className={className}>
@@ -128,8 +177,8 @@ const Game = () => {
         open={openModal}
       />
       <Modal
-        children={<Statistics isDisabled={isDisableStatistics} onClick={toggleOpenModalStatistics}/>}
-        handleClose={!isDisableStatistics ? toggleOpenModalStatistics : () => null}
+        children={<Statistics seconds={seconds} minutes={minutes} onClick={toggleOpenModalStatistics}/>}
+        handleClose={toggleOpenModalStatistics}
         open={openModalStatistics}
       />
     </div>

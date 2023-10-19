@@ -1,4 +1,5 @@
 export interface StatisticsProps {
   onClick?: () => void;
-  isDisabled: boolean;
+  seconds: number;
+  minutes: number;
 }

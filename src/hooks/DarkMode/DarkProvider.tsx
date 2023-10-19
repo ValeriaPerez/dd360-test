@@ -1,4 +1,4 @@
-import { useMemo, useReducer, useEffect, useContext } from 'react';
+import { useMemo, useReducer, useContext } from 'react';
 import type { ReactNode } from 'react';
 import darkReducer from './darkReducer';
 import initialState from './initialState';
@@ -8,14 +8,6 @@ import DarkContext from './DarkContext';
 
 export const DarkProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(darkReducer, initialState);
-
-  useEffect(() => {
-    const isDark: string | null = localStorage.getItem('isDark');
-    dispatch({
-      type: isDark === 'true' ? 'DARK' : 'WHITE',
-      isDark: isDark === 'true' ? true : false,
-    });
-  }, []);
 
   const darkContext = useMemo<DarkContextType>(
     () => ({

@@ -3,5 +3,4 @@ export interface ContainerProps {
   children: React.ReactNode;
   onClick?: () => void;
   textButton?: string;
-  isDisabled?: boolean;
 }

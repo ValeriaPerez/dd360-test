@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Game } from '../components';
 import { useDark } from '../hooks';
 
@@ -7,14 +6,6 @@ const DARK_CLASS = 'isDark';
 
 const Home = () => {
   const { isDark } = useDark();
-  const objectStatistics = localStorage.getItem('statistics');
-
-  useEffect(() => {
-    if (!objectStatistics) {
-      let createObject = {play: 0, win: 0, word: '', showWord: false};
-      localStorage.setItem('statistics', JSON.stringify(createObject));
-    }
-  });
 
   const className: string = [
     MAIN_CLASS,
